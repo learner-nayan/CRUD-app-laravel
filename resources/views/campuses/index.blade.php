@@ -19,7 +19,7 @@
 </div>
 @endif
 
-@if (session('delete_confirmation') && session('id_to_delete'))
+<!-- @if (session('delete_confirmation') && session('id_to_delete'))
 <div class="container">
     <div class="alert alert-warning alert-dismissable">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
@@ -32,7 +32,7 @@
       </form>
     </div>
 </div>
-@endif
+@endif -->
 
 <h4><a href="{{route('campuses.create')}}">Create College</a></h4>
 
@@ -66,14 +66,13 @@
             <td>{{$campus->closing_hour}}</td>
             <td>{{$campus->teachers_gender}}</td>
             <td><a href="{{route('campuses.edit', [$campus->id])}}">Edit</a></td>
-            <!-- <td>
-              <form action="{{route('campuses.delete', [$campus->id])}}" method="post">
+            <td>
+              <form action="{{route('campuses.destroy', [$campus->id])}}" method="post">
                 @method('delete')
                 @csrf
-                <button type="submit" class="btn btn-default">Delete</button>
+                <button type="submit" class="btn btn-default"  onclick="return confirm('Are you sure you want to delete this item?')">Delete</button>
               </form>
-            </td> -->
-            <td><a href="{{route('campuses.delete_confirmation', [$campus->id])}}">Delete</a></td>
+            </td>
         </tr>
         @endforeach
     </tbody>

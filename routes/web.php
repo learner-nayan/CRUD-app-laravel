@@ -18,22 +18,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//table route
-Route::get('/index', [CampusController::class, 'index'])->name('campuses.index');
+// //table route
+// Route::get('/campuses/index', [CampusController::class, 'index'])->name('campuses.index');
 
-//create-form routes
-Route::get('/campuses/create', [CampusController::class, 'create'])->name('campuses.create');
-Route::post('/campuses/create', [CampusController::class, 'store'])->name('campuses.store');
+// //create-form routes
+// Route::get('/campuses/create', [CampusController::class, 'create'])->name('campuses.create');
+// Route::post('/campuses/create', [CampusController::class, 'store'])->name('campuses.store');
 
-//edit-form routes
-Route::get('/campuses/{id}/edit', [CampusController::class, 'edit'])->name('campuses.edit');
+// //edit-form routes
+// Route::get('/campuses/{campus}/edit', [CampusController::class, 'edit'])->name('campuses.edit');
 
-//update-form routes
-Route::put('/campuses/{id}/update', [CampusController::class, 'update'])->name('campuses.update');
+// //update-form routes
+// Route::put('/campuses/{campus}/update', [CampusController::class, 'update'])->name('campuses.update');
 
-//delete route
-Route::delete('/campuses/{id}/delete', [CampusController::class, 'delete'])->name('campuses.delete');
+// //delete route
+// Route::delete('/campuses/{campus}/delete', [CampusController::class, 'delete'])->name('campuses.delete');
 
-//delete-confirmation routes
-Route::get('/campuses/{id}/delete-confirmation', [CampusController::class, 'delete_confirmation'])->name('campuses.delete_confirmation');
+// //delete-confirmation routes
+// Route::get('/campuses/{campus}/delete-confirmation', [CampusController::class, 'deleteConfirmation'])->name('campuses.delete_confirmation');
 
+
+
+//CRUD routes using Resource
+Route::resource('campuses', CampusController::class)->except('show');

@@ -17,20 +17,12 @@ class CampusController extends Controller
     }
 
     public function store(Request $request) {
-        
+        // dd($request->all());
         $this->validation($request);
 
         $campus = new Campus();
 
-        $campus->name = $request->name;
-        $campus->phone_number = $request->phone_number;
-        $campus->number_of_teachers = $request->number_of_teachers;
-        $campus->number_of_students = $request->number_of_students;
-        $campus->est_date = $request->est_date;
-        $campus->total_class = $request->total_class;
-        $campus->opening_hour = $request->opening_hour;
-        $campus->closing_hour = $request->closing_hour;
-        $campus->teachers_gender = $request->teachers_gender;
+        $campus = $this->prepareRecord($campus, $request);
 
         $campus->save();
         return redirect()->route('campuses.index')->with('message', 'College data stored successfully!');
@@ -46,29 +38,21 @@ class CampusController extends Controller
 
         $this->validation($request);
 
-        $campus->name = $request->name;
-        $campus->phone_number = $request->phone_number;
-        $campus->number_of_teachers = $request->number_of_teachers;
-        $campus->number_of_students = $request->number_of_students;
-        $campus->est_date = $request->est_date;
-        $campus->total_class = $request->total_class;
-        $campus->opening_hour = $request->opening_hour;
-        $campus->closing_hour = $request->closing_hour;
-        $campus->teachers_gender = $request->teachers_gender;
+        $campus = $this->prepareRecord($campus, $request);
 
         $campus->update();
         return redirect()->route('campuses.index')->with('message', 'College data updated successfully!');
     }
 
-    public function delete($id) {
+    public function destroy($id) {
         $campus = Campus::find($id);
         $campus->delete();
         return redirect()->route('campuses.index')->with('message', 'College data deleted successfully!');
     }
 
-    public function delete_confirmation($id_to_delete) {
-        return redirect()->route('campuses.index')->with(['delete_confirmation' => 'Are you sure you want to delete the college data?', 'id_to_delete' => $id_to_delete]);
-    }
+    // public function delete_confirmation($id_to_delete) {
+    //     return redirect()->route('campuses.index')->with(['delete_confirmation' => 'Are you sure you want to delete the college data?', 'id_to_delete' => $id_to_delete]);
+    // }
 
     private function validation($request) {
         return $request->validate([
@@ -82,5 +66,19 @@ class CampusController extends Controller
             'closing_hour'=> ['required', 'date_format:H:i'],
             'teachers_gender'=> ['required', 'in:male,female,other'],
         ]);
+    }
+
+    private function prepareRecord($campus, $request){
+        $campus->name = $request->name;
+        $campus->phone_number = $request->phone_number;
+        $campus->number_of_teachers = $request->number_of_teachers;
+        $campus->number_of_students = $request->number_of_students;
+        $campus->est_date = $request->est_date;
+        $campus->total_class = $request->total_class;
+        $campus->opening_hour = $request->opening_hour;
+        $campus->closing_hour = $request->closing_hour;
+        $campus->teachers_gender = $request->teachers_gender;
+
+        return $campus;
     }
 }
