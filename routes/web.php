@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\ComputerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,3 +42,5 @@ Route::get('/', function () {
 
 //CRUD routes using Resource
 Route::resource('campuses', CampusController::class)->except('show');
+
+Route::resource('computers', ComputerController::class)->except('show');
