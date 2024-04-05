@@ -59,7 +59,7 @@ Route::group(['prefix'=>'users', 'as'=>'users.'], function(){
 Route::get('login', [UserController::class, 'loginForm'])->name('loginForm');
 Route::post('login', [UserController::class, 'login'])->name('login');
 
-Route::group(['middleware'=>['auth']], function() {
+Route::group(['middleware'=>['auth','isAdmin']], function() {
     Route::get('home', [UserController::class, 'home'])->name('home');
 });
 // Route::get('home', [UserController::class, 'home'])->name('home')->middleware('auth');
